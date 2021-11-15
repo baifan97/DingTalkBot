@@ -3,25 +3,25 @@ import time,hmac,hashlib,base64,urllib.parse,sys,requests,json
 from function import *
 from lxml import etree
 def sent_message(token:str,secret:str,GOBOT_URL:str,GOBOT_QQ:str,text:str,title:str,picUrl:str,messageUrl:str):
-    timestamp = str(round(time.time() * 1000))  
-    secret_enc = secret.encode('utf-8')
-    string_to_sign = '{}\n{}'.format(timestamp, secret)
-    string_to_sign_enc = string_to_sign.encode('utf-8')
-    hmac_code = hmac.new(secret_enc, string_to_sign_enc, digestmod=hashlib.sha256).digest()
-    sign = urllib.parse.quote_plus(base64.b64encode(hmac_code))
-    url="https://oapi.dingtalk.com/robot/send?access_token={2}&timestamp={0}&sign={1}".format(timestamp,sign,token)
-    data={
-        "msgtype": "link", 
-        "link": {
-            "text": text, 
-            "title": title, 
-            "picUrl": picUrl, 
-            "messageUrl": messageUrl
-        }
-    }
-    headers={"Content-Type": "application/json"}
-    data=json.dumps(data)
-    rsp=requests.post(url=url,data=data,headers=headers)
+#     timestamp = str(round(time.time() * 1000))  
+#     secret_enc = secret.encode('utf-8')
+#     string_to_sign = '{}\n{}'.format(timestamp, secret)
+#     string_to_sign_enc = string_to_sign.encode('utf-8')
+#     hmac_code = hmac.new(secret_enc, string_to_sign_enc, digestmod=hashlib.sha256).digest()
+#     sign = urllib.parse.quote_plus(base64.b64encode(hmac_code))
+#     url="https://oapi.dingtalk.com/robot/send?access_token={2}&timestamp={0}&sign={1}".format(timestamp,sign,token)
+#     data={
+#         "msgtype": "link", 
+#         "link": {
+#             "text": text, 
+#             "title": title, 
+#             "picUrl": picUrl, 
+#             "messageUrl": messageUrl
+#         }
+#     }
+#     headers={"Content-Type": "application/json"}
+#     data=json.dumps(data)
+#     rsp=requests.post(url=url,data=data,headers=headers)
     url = f'{GOBOT_URL}?{GOBOT_QQ}&message=⏰ {title}\n---------\n{messageUrl}'
     response = requests.get(url).json()
     print(rsp.json().get('errmsg'))
