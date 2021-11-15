@@ -25,12 +25,8 @@ def sent_message(token:str,secret:str,GOBOT_URL:str,GOBOT_QQ:str,text:str,title:
     print(rsp.json().get('errmsg'))
     if os.environ.get('GOBOT_URL'):
             # go_cqhttp 推送
-    url = f'{GOBOT_URL}?{GOBOT_QQ}&message=⏰ {title}\n---------\n{messageUrl}'
-    response = requests.get(url).json()
-     if response["status"] == "ok":
-          print("消息经go-cqhttp 推送成功！")
-     else:
-          print("消息经go-cqhttp 推送失败！")
+        url = f'{GOBOT_URL}?{GOBOT_QQ}&message=⏰ {title}\n---------\n{messageUrl}'
+        response = requests.get(url).json()
 
 if __name__ == "__main__":
     try:
