@@ -22,12 +22,9 @@ def sent_message(token:str,secret:str,GOBOT_URL:str,GOBOT_QQ:str,text:str,title:
     headers={"Content-Type": "application/json"}
     data=json.dumps(data)
     rsp=requests.post(url=url,data=data,headers=headers)
+    url = f'{GOBOT_URL}?{GOBOT_QQ}&message=⏰ {title}\n---------\n{messageUrl}'
+    response = requests.get(url).json()
     print(rsp.json().get('errmsg'))
-    if os.environ.get('GOBOT_URL'):
-            # go_cqhttp 推送
-        url = f'{GOBOT_URL}?{GOBOT_QQ}&message=⏰ {title}\n---------\n{messageUrl}'
-        response = requests.get(url).json()
-
 if __name__ == "__main__":
     try:
         token=sys.argv[1]
