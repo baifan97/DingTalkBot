@@ -23,11 +23,11 @@ def sent_message(token:str,secret:str,text:str,title:str,picUrl:str,messageUrl:s
     data=json.dumps(data)
     rsp=requests.post(url=url,data=data,headers=headers)
     print(rsp.json().get('errmsg'))
-    
+    if os.environ.get('GOBOT_URL'):
+            # go_cqhttp 推送
     GOBOT_URL = os.environ["GOBOT_URL"]
-    GOBOT_TOKEN = os.environ["GOBOT_TOKEN"]
     GOBOT_QQ = os.environ["GOBOT_QQ"]
-    url = f'{GOBOT_URL}?access_token={GOBOT_TOKEN}&{GOBOT_QQ}&message=⏰ {title}\n---------\n{messageUrl}'
+    url = f'{GOBOT_URL}?{GOBOT_QQ}&message=⏰ {title}\n---------\n{messageUrl}'
     response = requests.get(url).json()
      if response["status"] == "ok":
           print("消息经go-cqhttp 推送成功！")
